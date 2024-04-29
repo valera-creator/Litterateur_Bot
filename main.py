@@ -64,7 +64,6 @@ async def check_text(update, context):
             context.user_data['current_string'] += 1
             return
         check_text_e = text.replace('Ё', 'Е').replace('ё', 'е')
-        print(check_text_e)
         if check_text_e == text_data[context.user_data['current_string']]:
             if context.user_data['current_string'] >= len(text_data) - 1:
                 await update.message.reply_text('Ураааа! да мы с тобой поэты! Хочешь ещё раз??',
@@ -89,7 +88,6 @@ async def check_text(update, context):
                 reply_markup=reply_markup_suphler)
             return
     check_text_e = text.replace('Ё', 'Е').replace('ё', 'е')
-    print(check_text_e)
     if check_text_e == text_data[context.user_data['current_string']]:
         if context.user_data['current_string'] >= len(text_data) - 1:
             await update.message.reply_text('Ураааа! да мы с тобой поэты! Хочешь ещё раз??',
