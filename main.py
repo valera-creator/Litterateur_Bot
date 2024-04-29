@@ -1,5 +1,5 @@
 from telegram.ext import Application, CommandHandler, ConversationHandler, MessageHandler, filters
-from telegram import ReplyKeyboardMarkup
+from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove
 
 BOT_TOKEN = '7134752919:AAGCqQM82B3rswT_BgYjxb84hgs3HjkHqFA'
 markup = [['да', 'нет']]
@@ -39,7 +39,7 @@ async def check_text(update, context):
         if text.lower() == 'да':
             context.user_data['current_string'] = 1
             context.user_data['end_game'] = False
-            await update.message.reply_text(text_data[0])
+            await update.message.reply_text(text_data[0], reply_markup=ReplyKeyboardRemove())
             return
 
         elif text.lower() == 'нет':
@@ -53,7 +53,8 @@ async def check_text(update, context):
     if context.user_data['check_suphler']:
         if text.lower() == 'suphler':
             context.user_data['check_suphler'] = False
-            await update.message.reply_text(text_data[context.user_data['current_string']])
+            await update.message.reply_text(text_data[context.user_data['current_string']],
+                                            reply_markup=ReplyKeyboardRemove())
             if context.user_data['current_string'] >= len(text_data) - 1:
                 await update.message.reply_text('Ураааа! да мы с тобой поэты! Хочешь ещё раз??',
                                                 reply_markup=reply_markup_yes_no)
@@ -62,15 +63,17 @@ async def check_text(update, context):
 
             context.user_data['current_string'] += 1
             return
-
-        elif text == text_data[context.user_data['current_string']]:
+        check_text_e = text.replace('Ё', 'Е').replace('ё', 'е')
+        print(check_text_e)
+        if check_text_e == text_data[context.user_data['current_string']]:
             if context.user_data['current_string'] >= len(text_data) - 1:
                 await update.message.reply_text('Ураааа! да мы с тобой поэты! Хочешь ещё раз??',
                                                 reply_markup=reply_markup_yes_no)
                 context.user_data['end_game'] = True  # , чтобы отслеживать да или нет в конце стиха
                 return
 
-            await update.message.reply_text(text_data[context.user_data['current_string'] + 1])
+            await update.message.reply_text(text_data[context.user_data['current_string'] + 1],
+                                            reply_markup=ReplyKeyboardRemove())
             context.user_data['current_string'] += 2
             context.user_data['check_suphler'] = False
 
@@ -85,8 +88,9 @@ async def check_text(update, context):
                 f"Неправильно, нажми на suphler, чтобы увидеть текст",
                 reply_markup=reply_markup_suphler)
             return
-
-    if text == text_data[context.user_data['current_string']]:
+    check_text_e = text.replace('Ё', 'Е').replace('ё', 'е')
+    print(check_text_e)
+    if check_text_e == text_data[context.user_data['current_string']]:
         if context.user_data['current_string'] >= len(text_data) - 1:
             await update.message.reply_text('Ураааа! да мы с тобой поэты! Хочешь ещё раз??',
                                             reply_markup=reply_markup_yes_no)
@@ -109,7 +113,7 @@ async def check_text(update, context):
 
 
 async def stop(update, context):
-    await update.message.reply_text(f"Пока, пока)")
+    await update.message.reply_text(f"Пока, пока)", reply_markup=ReplyKeyboardRemove())
     context.user_data.clear()  # очищаем словарь с пользовательскими данными
     return ConversationHandler.END
 
