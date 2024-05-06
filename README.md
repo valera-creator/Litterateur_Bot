@@ -1,6 +1,12 @@
-<p>
-Бот-литератор в телеграмме<br>
-pip install python-telegram-bot[ext] --upgrade - прописать для установки библиотеки без requirements.txt
+<h4 align="center"> Бот-литератор в telegram</h4><hr>
 
-https://t.me/ValeraLiteratorBot - ссылка на бота (если хостинг жив)
+<p>
+Для установки всех библиотек сразу:<br>
+pip install -r requirements.txt
+</p><hr>
+
+<p>
+Для установки библиотек через терминал:<br>
+pip install python-telegram-bot[ext] --upgrade<br>
+pip install requests 
 </p>
