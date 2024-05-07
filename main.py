@@ -3,10 +3,10 @@ from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove
 
 BOT_TOKEN = '7134752919:AAGCqQM82B3rswT_BgYjxb84hgs3HjkHqFA'
 markup = [['да', 'нет']]
-reply_markup_yes_no = ReplyKeyboardMarkup(markup, one_time_keyboard=True)
+reply_markup_yes_no = ReplyKeyboardMarkup(markup, one_time_keyboard=True, resize_keyboard=True)
 
 markup2 = [['suphler']]
-reply_markup_suphler = ReplyKeyboardMarkup(markup2, one_time_keyboard=True)
+reply_markup_suphler = ReplyKeyboardMarkup(markup2, one_time_keyboard=True, resize_keyboard=True)
 
 text_data = [i.strip() for i in open('text.txt', encoding='utf8')]
 
